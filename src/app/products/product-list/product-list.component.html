@@ -1,0 +1,22 @@
+<h2>
+    {{title}}
+</h2>
+<h3>{{mesg}}</h3>
+
+<ul class="products">
+    
+ <li *ngFor="let product of products"
+   (click)="onSelectProduct(product)"
+   [class.discontinued]="product.discontinued"
+   [class.selected]="product === selectedProduct">
+    
+    <span class="name">{{product.name | uppercase}}</span>
+    <span class="description">{{product.description}}</span>
+    <span class="price">{{product.price |currency:'CAD':true:'.2'}}</span>
+ </li>
+ /* product detail: */
+ <app-product-detail 
+  (favouriteAdded)="newFavourite($event)"
+  [product]="selectedProduct">
+ </app-product-detail>
+</ul>
