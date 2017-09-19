@@ -3,12 +3,13 @@ import {Product } from '../product.interface';
 import {ProductService} from 'app/services/product.service';
 import {FavouriteService} from 'app/services/favourite.service';
 import {Observable} from 'rxjs/Observable';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
-  providers:[ProductService,FavouriteService]
+  providers:[]
   //shadow dom
   //encapsulation: ViewEncapsulation.Native
 })
@@ -59,6 +60,8 @@ export class ProductListComponent implements OnInit {
     onSelectProduct(product: Product): void {
         //je recupere le produit selectionné
        this.selectedProduct = product;
+       //ensuite affiche la route:
+       this.router.navigateByUrl("/products/"+ product.id);
     }
     //propriete en lecture seule:
     get favourites(): number {
@@ -66,7 +69,8 @@ export class ProductListComponent implements OnInit {
 
     }
     constructor (private productService: ProductService,
-                 private favouriteService: FavouriteService) 
+                 private favouriteService: FavouriteService,
+                 private router: Router) 
     {
      // this.productService.getProducts()
        //                  .subscribe(res => this.products = res);

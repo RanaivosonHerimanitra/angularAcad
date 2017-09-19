@@ -1,5 +1,6 @@
 # angularAcad
-Hands on during the Angular Academy Montreal 2017
+
+Hands on lab during the Angular Academy Montreal sept'2017
 
 ## Javascript (ECMA'15):
 
@@ -8,8 +9,7 @@ Hands on during the Angular Academy Montreal 2017
  * classes (`class`)
 
 ## Component declaration:
-
-Automatically imported by angular-cli inside `app.module.ts`
+When one declares component, It's automatically imported by angular-cli inside `app.module.ts`
 
 
 ## Template syntaxes:

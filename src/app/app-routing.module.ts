@@ -8,6 +8,7 @@ import {ErrorComponent} from 'app/common/error.component';
 const routes : Routes = [
     {path:'',redirectTo:'/home',pathMatch:'full'},
     {path:'home',component:HomeComponent},
+    {path:'products',loadChildren:"./products/products.module#ProductsModule"},
     {path:'contact',component:ContactComponent},
     {path:'admin',component:AdminComponent},
     {path:'**',component:ErrorComponent}

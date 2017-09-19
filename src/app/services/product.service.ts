@@ -19,6 +19,14 @@ export class ProductService {
     constructor(private http: HttpClient) { 
         // ca suffit pour appeller HttpClient
     }
+    getProductById (id:number ): Observable<Product> {
+
+        return this.getProducts()
+                   .do(console.log)
+                   .flatMap(pr=>pr) //extraction pour faire un produit observable
+                   .do(console.log)
+                   .filter(p => p.id==id);
+    }
     getProducts (): Observable<Product[]>
     {
         if (!this.products$)

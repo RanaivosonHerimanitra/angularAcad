@@ -6,23 +6,25 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 //import { ProductDetailComponent } from './products/product-detail/product-detail.component';
 import {HttpClientModule} from '@angular/common/http';
-import {ProductsModule} from 'app/products/products.module';
+//import {ProductsModule} from 'app/products/products.module';
 import {HomeComponent} from 'app/common/home.component';
 import {ContactComponent} from 'app/common/contact.component';
 import {AdminComponent} from 'app/common/admin.component';
 import {AppRoutingModule} from 'app/app-routing.module';
 import {ErrorComponent} from 'app/common/error.component';
+import {LoginComponent} from 'app/common/login.component';
 //import {OrderBy} from 'app/products/orderBy.pipe';
 @NgModule({
   declarations: [
-    AppComponent,HomeComponent,ContactComponent,AdminComponent,ErrorComponent
+    AppComponent,HomeComponent,ContactComponent,AdminComponent,ErrorComponent, LoginComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     HttpClientModule,
-    ProductsModule,
+   
+    //ProductsModule,
     AppRoutingModule
   ],
   providers: [],

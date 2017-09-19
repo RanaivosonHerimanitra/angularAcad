@@ -36,7 +36,7 @@
     <span class="description">{{product.description}}</span>
     <span class="price">{{product.price |currency:'CAD':true:'.2'}}</span>
  </li>
- /* product detail: */
+ /* product detail: **/
  <app-product-detail 
   (favouriteAdded)="newFavourite($event)"
   [product]="selectedProduct">

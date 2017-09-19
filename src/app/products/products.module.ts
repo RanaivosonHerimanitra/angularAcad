@@ -4,12 +4,15 @@ import {ProductDetailComponent} from 'app/products/product-detail/product-detail
 import {OrderBy} from 'app/products/orderBy.pipe';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
+import {ProductsRoutingModule} from 'app/products/products-routing.module';
+import {ProductService} from 'app/services/product.service';
+import {FavouriteService} from 'app/services/favourite.service';
 
 @NgModule({
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, ProductsRoutingModule],
     exports: [ProductListComponent],
     declarations: [ProductListComponent, ProductDetailComponent, OrderBy],
-    providers: []
+    providers: [ProductService,FavouriteService]
 })
 export class ProductsModule { 
 
