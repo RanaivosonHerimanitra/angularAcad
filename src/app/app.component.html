@@ -1,3 +1,12 @@
 <h1>
-  Welcome to {{title}}
+  Angular Store
 </h1>
+<nav>
+  <a [routerLink]="['/home']">Home</a>
+  <a [routerLink]="['/contact']">Contact</a>
+  <a [routerLink]="['/admin']">Admin</a>
+</nav>
+<router-outlet></router-outlet>
+
+<hr />
+<small>Copyright Angular 2017</small>
