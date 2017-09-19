@@ -5,16 +5,18 @@ import { HttpModule } from '@angular/http';
 import {ProductListComponent} from './products/product-list/product-list.component';
 import { AppComponent } from './app.component';
 import { ProductDetailComponent } from './products/product-detail/product-detail.component';
-
+import {HttpClientModule} from '@angular/common/http';
+import {OrderBy} from 'app/products/orderBy.pipe';
 
 @NgModule({
   declarations: [
-    AppComponent, ProductListComponent, ProductDetailComponent
+    AppComponent, ProductListComponent, ProductDetailComponent, OrderBy
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [ProductListComponent]

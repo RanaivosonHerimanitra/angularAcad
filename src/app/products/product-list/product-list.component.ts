@@ -1,23 +1,58 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {Product } from '../product.interface';
+import {ProductService} from 'app/services/product.service';
+import {FavouriteService} from 'app/services/favourite.service';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
-  //,
+  styleUrls: ['./product-list.component.css'],
+  providers:[ProductService,FavouriteService]
   //shadow dom
   //encapsulation: ViewEncapsulation.Native
 })
 export class ProductListComponent implements OnInit {
     title: String = "Products";
-    products: Product[];
+    products$: Observable<Product[]>;
     mesg: string;
     selectedProduct: Product;
+    pageSize: number = 5;
+    start: number = 0;
+    end: number = this.pageSize;
+    sorter: string = "-price"; //descendant avec le signe moins
+    sorter_name : string ="name";
+    sortByName( ) {
+        if (this.sorter_name=="name") {
+            this.sorter_name="-name";
+        } else {
+            this.sorter_name="name";
+        }
+    }
+    //also for resusable case:
+    sortList(prpertyname: string): void {
+        this.sorter= this.sorter.startsWith("-") ? prpertyname : "-" + prpertyname;
+    }
+    //pagination functions
+    nextPage() {
+        this.start += this.pageSize;
+        this.end += this.pageSize;
+        this.selectedProduct=null;
+    }
+    prevPage() {
+
+        this.start -= this.pageSize;
+        this.end -= this.pageSize;
+        this.selectedProduct=null;
+    }
     newFavourite(product:Product): void {
         this.mesg = "Product" + product.name + " added to your favourites";
     }
     ngOnInit() {
+        /* les models ont des cycles de ve **/
+        this.products$= this.productService.getProducts();
+        // this.productService.getProducts()
+        // .subscribe(res => this.products = res);
     }
     //la fonction qui est appelee lorsqu'on click sur un produit
     //comme dans java, ne retourne rien
@@ -25,53 +60,15 @@ export class ProductListComponent implements OnInit {
         //je recupere le produit selectionné
        this.selectedProduct = product;
     }
-    constructor () {
-        this.products = [
-            {
-                name: 'Trek SSL 2015',
-                price: 999.9,
-                description: 'Racing bike.',
-                discontinued: false,
-                fixedPrice: false,
-                imageUrl: 'https://firebasestorage.googleapis.com/v0/b/angularstore-29f4b.appspot.com/o/products%2Ftrek.jpg?alt=media&token=42e1650e-7ff9-467f-bde7-0423786c94fd',
-                modifiedDate: new Date(2016, 12, 8)
-            },
-            {
-                name: 'City XT 2015',
-                price: 659.5,
-                description: 'City bike.',
-                discontinued: true,
-                fixedPrice: false,
-                imageUrl: 'https://firebasestorage.googleapis.com/v0/b/angularstore-29f4b.appspot.com/o/products%2Fcity.jpg?alt=media&token=5a79c5c3-177f-44b3-b99e-fe6be97c4f7a',
-                modifiedDate: new Date(2017, 1, 12)
-            },
-            {
-                name: 'Cosmic Cobat 2015',
-                price: 499.9,
-                description: 'Great bike.',
-                discontinued: false,
-                fixedPrice: false,
-                imageUrl: 'https://firebasestorage.googleapis.com/v0/b/angularstore-29f4b.appspot.com/o/products%2Fcosmic-cobat.jpg?alt=media&token=9df1af7a-9b79-4bf6-9b98-9079581fb7d1',
-                modifiedDate: new Date(2017, 1, 2)
-            },
-            {
-                name: 'Hero DTB 2016',
-                price: 759,
-                description: 'Champion\'s bike.',
-                discontinued: false,
-                fixedPrice: true,
-                imageUrl: 'https://firebasestorage.googleapis.com/v0/b/angularstore-29f4b.appspot.com/o/products%2Fhero-dtb.jpg?alt=media&token=8cda2f52-2b86-43eb-aa86-2537346e8736',
-                modifiedDate: new Date(2017, 1, 24)
-            },
-            {
-                name: 'S-WORKS 2016',
-                price: 1299.9,
-                description: 'Ultra bike.',
-                discontinued: false,
-                fixedPrice: false,
-                imageUrl: 'https://firebasestorage.googleapis.com/v0/b/angularstore-29f4b.appspot.com/o/products%2Fs-works.jpg?alt=media&token=5bf064a9-c8f7-4b47-a113-8825f95934f4',
-                modifiedDate: new Date(2017, 1, 19)
-            }
-        ];
+    //propriete en lecture seule:
+    get favourites(): number {
+        return this.favouriteService.getFavouritesNb();
+
+    }
+    constructor (private productService: ProductService,
+                 private favouriteService: FavouriteService) 
+    {
+     // this.productService.getProducts()
+       //                  .subscribe(res => this.products = res);
     }
 }

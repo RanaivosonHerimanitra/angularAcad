@@ -2,11 +2,33 @@
     {{title}}
 </h2>
 <h3>{{mesg}}</h3>
+/* with an ICU template: **/
+<h3>{favourites, plural,
+        
+        =0 {no favourite}
+        =1 {1 favourite}
+        other {{{favourites}} favourites}
+        
+        }</h3>
+<ng-template #loading>
+    <h2>Load products...</h2>
+</ng-template>
+<ul class="products"  *ngIf="products$ | async as products; else loading">
 
-<ul class="products">
+<button (click)="sortList('name')">
+    Sort By Name
+</button>
+<button (click)="sortList('price')">
+    Sort By price
+</button>
+<button (click)="sortList('modifiedDate')">
+    Sort By date
+</button>
+ <li 
     
- <li *ngFor="let product of products"
+     *ngFor="let product of products | orderBy:[sorter] |slice:start:end"
    (click)="onSelectProduct(product)"
+   [title]="product | json"
    [class.discontinued]="product.discontinued"
    [class.selected]="product === selectedProduct">
     
@@ -20,3 +42,12 @@
   [product]="selectedProduct">
  </app-product-detail>
 </ul>
+
+<div>
+    <button [disabled]="(products$ | async)?.length<=end" (click)="nextPage()">
+        Next Page
+    </button>
+    <button [disabled]="start==0" (click)="prevPage()">
+        Previous Page
+    </button>
+</div>
