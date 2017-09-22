@@ -27,7 +27,11 @@
 # misc
 /.sass-cache
 /connect.lock
+<<<<<<< HEAD
 /coverage
+=======
+/coverage/*
+>>>>>>> f0ddb7431f0f016a74d92a00e2324a8a23b9c25b
 /libpeerconnection.log
 npm-debug.log
 testem.log
@@ -37,6 +41,10 @@ testem.log
 /e2e/*.js
 /e2e/*.map
 
+<<<<<<< HEAD
 # System Files
+=======
+#System Files
+>>>>>>> f0ddb7431f0f016a74d92a00e2324a8a23b9c25b
 .DS_Store
 Thumbs.db

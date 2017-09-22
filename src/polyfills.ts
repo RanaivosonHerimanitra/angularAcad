@@ -19,7 +19,9 @@
  */
 
 /** IE9, IE10 and IE11 requires all of the following polyfills. **/
+
 /** pour supporter internet explorer */
+
 // import 'core-js/es6/symbol';
 // import 'core-js/es6/object';
 // import 'core-js/es6/function';

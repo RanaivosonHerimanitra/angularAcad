@@ -1,6 +1,7 @@
 
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpRequest, HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import {HttpClient, HttpRequest, HttpResponse, HttpErrorResponse } 
+from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Product} from '../products/product.interface';
 import 'rxjs/add/operator/map'; 
@@ -26,6 +27,16 @@ export class ProductService {
                    .flatMap(pr=>pr) //extraction pour faire un produit observable
                    .do(console.log)
                    .filter(p => p.id==id);
+    }
+    //suppress data:
+    deleteProduct(id: number): Observable<any> {
+        return this.http
+            .delete(`${this.baseUrl}${id}`); // Delete product from the server            
+    }
+    //save data using the API:
+    insertProduct(newProduct: Product): Observable<Product> {
+        return this.http
+            .post<Product>(this.baseUrl, newProduct);
     }
     getProducts (): Observable<Product[]>
     {

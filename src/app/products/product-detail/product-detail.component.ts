@@ -1,7 +1,7 @@
 import { Component, OnInit , Input, Output, EventEmitter} from '@angular/core';
 import {Product} from '../product.interface';
 import {FavouriteService} from 'app/services/favourite.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ProductService} from 'app/services/product.service';
 
 @Component({selector: 'app-product-detail',
@@ -20,7 +20,29 @@ export class ProductDetailComponent implements OnInit {
     //ajout par l'intermediaire du service:
     this.favouriteService.addToFavourite(product);
   }
+  deleteProduct(id: number): void {
+    if (window.confirm("are you sure"))
+    {
+      this.productService.deleteProduct(id)
+      .subscribe(
+        //en cas de succes 1er bloc:
+        res => 
+        {
+          //le clear cache
+          this.productService.clearCache();
+          //redirection à faire!!!
+          this.router.navigateByUrl("/products");
+          //une petite trace:
+          console.log("product deleted")
+          
+        },
+        //erreur toujours 2ieme bloc
+        error => console.log("could not delete product")
+       );
+    }
+  }
   constructor(private favouriteService: FavouriteService,
+              private router: Router,
               private route: ActivatedRoute,
               private productService: ProductService) 
   { 

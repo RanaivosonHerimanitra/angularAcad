@@ -10,10 +10,12 @@
         other {{{favourites}} favourites}
         
         }</h3>
+        <div>
+            {{(products$ | async)?.length}}
+        </div>
 <ng-template #loading>
     <h2>Load products...</h2>
 </ng-template>
-<ul class="products"  *ngIf="products$ | async as products; else loading">
 
 <button (click)="sortList('name')">
     Sort By Name
@@ -24,6 +26,14 @@
 <button (click)="sortList('modifiedDate')">
     Sort By date
 </button>
+
+<div>
+    <a [routerLink]="['insert']"> add new product </a>
+</div>
+
+<ul class="products"  *ngIf="products$ | async as products; else loading">
+
+
  <li 
     
      *ngFor="let product of products | orderBy:[sorter] |slice:start:end"
